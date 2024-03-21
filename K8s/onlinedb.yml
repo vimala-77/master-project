@@ -8,35 +8,3 @@ spec:
   selector:
     app: sql-container
   clusterIP: None
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sql-container
-spec:
-  selector:
-    matchLabels:
-      app: sql-container
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: sql-container
-    spec:
-      containers:
-      - image: vimala77/mycustom-mysql03
-        name: sql-container
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: root
-        ports:
-        - containerPort: 3306
-          name: sql-container
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
