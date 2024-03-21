@@ -1,0 +1,32 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: onlinebookstore-tomcat9
+  labels: 
+     app: onlinebookstore
+
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+     app: onlinebookstore
+  template:
+    metadata:
+      labels:
+        app: onlinebookstore
+    spec:
+      containers:
+      - name: onlinebookstore-tomcat9
+        image: vimala77/onlinebookstore
+        imagePullPolicy: Always
+        env:
+        - name: DB_PORT_3306_TCP_ADDR
+          value: sql-container                #service name of mysql
+        - name: DB_ENV_MYSQL_PASSWORD
+          value: root
+        - name: DB_ENV_MYSQL_USER
+          value: root
+        - name: DB_ENV_MYSQL_DATABASE
+          value: onlinebookstore
+        ports:
+        - containerPort: 8080
