@@ -1,0 +1,5 @@
+FROM mysql
+MAINTAINER  vimala
+
+ENV MYSQL_ROOT_DATABASE onlinebookstore
+COPY ./scripts/ /docker-entrypoint-initdb.d/
